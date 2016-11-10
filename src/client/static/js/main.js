@@ -1,6 +1,12 @@
 var GameState = function(game) {
 };
 
+var user = 0;
+var userString = '';
+var userText;
+
+var userInfo = {};
+
 // Load images and sounds
 GameState.prototype.preload = function() {
     this.game.load.spritesheet('ship', '/static/img/ship.png', 32, 32);
@@ -15,6 +21,7 @@ GameState.prototype.preload = function() {
 GameState.prototype.create = function() {
     // Set stage background color
     this.game.stage.backgroundColor = 0x333333;
+
 
     // Define motion constants
     this.ROTATION_SPEED = 180; // degrees/second
@@ -63,6 +70,11 @@ GameState.prototype.create = function() {
         Phaser.Keyboard.UP,
         Phaser.Keyboard.DOWN
     ]);
+
+    // this.game.add.button(game.world.centerX - 95, 400, 'button', getTopScores, this, 2, 1, 0);
+
+    userString = 'User : ';
+    userText = game.add.text(10, 10, userString + user, { font: '34px Arial', fill: '#fff' });
 };
 
 // The update() method is called every frame
@@ -141,6 +153,24 @@ GameState.prototype.upInputIsActive = function() {
 
     return isActive;
 };
+
+function getTopScores () {
+    var msg = {id : 0}
+    socket.emit('gettopscores', msg);
+    // scoreText.text = scoreString + score;
+    // background.visible =! background.visible;
+
+}
+
+socket.on('inituserinfo', function(msg){
+   userInfo = msg;
+   user = msg.user_count;
+   userText.text = userString + userInfo.user_count;
+});
+
+socket.on('gettopscores', function(msg){
+//    userTExt.text = scoreString + score;
+});
 
 var game = new Phaser.Game(848, 450, Phaser.AUTO, 'game');
 game.state.add('game', GameState, true);
