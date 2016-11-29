@@ -56,6 +56,19 @@ io.on('connection', function(socket){
 });
 
 
-server.listen(3000,function(){
-    console.log("Live at Port 3000");
-});
+
+var prod = true;
+
+if (prod)
+{
+    app.set('port', (process.env.PORT || 5000));
+	server.listen(app.get('port'),function(){
+	  console.log("Live at Port!");
+	});
+}
+else
+{
+	server.listen(3000,function(){
+	  console.log("Live at Port 3000");
+	});
+}
