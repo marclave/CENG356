@@ -11,7 +11,7 @@ var io = require('socket.io')(server);
 app.use(express.static('client')); // make files in /public available
 
 var totalUsers = 0;
-var userFields = { user_id: 0, user_score: 0, user_count: 0 };
+var userFields = { user_number: 0,user_id: 0, user_score: 0, user_count: 0 };
 var users = []
 
 
@@ -41,6 +41,7 @@ io.on('connection', function(socket){
     users[totalUsers] = userFields;
     users[totalUsers].user_count = totalUsers;
     users[totalUsers].user_id = socket.id;
+    users[totalUsers].user_number = totalUsers;
     io.emit("inituserinfo", users[totalUsers]);
     socket.on('gettopscores', function(id, msg){
         console.log(id, msg);

@@ -1,6 +1,5 @@
 var user = 0;
 var userString = '';
-var userText;
 
 var userInfo = {};
 
@@ -15,7 +14,7 @@ var game = new Phaser.Game(
 
     function init() {
 
-        var text = "Welcome to asteroids!";
+        var text = "Welcome to asteroids user !" + user;
         var style = { font: "12px Arial", fill: "#0f0", align: "center" };
         var t = game.add.text(this.world.centerX, this.world.centerY, text, style);
         t.anchor.setTo(0.5, 0.5);
@@ -427,7 +426,7 @@ var game = new Phaser.Game(
             player.kill();
             pineapples.callAll('kill');
 
-            stateText.text=" GAME OVER \n Click to restart";
+            stateText.text=" GAME OVER \n" + "   Astronaut " + user + "\nClick to restart";
             stateText.visible = true;
 
             //the "click to restart" handler
@@ -458,7 +457,7 @@ var game = new Phaser.Game(
             player.kill();
             enemyBullets1.callAll('kill');
 
-            stateText.text=" GAME OVER \n Click to restart";
+            stateText.text=" GAME OVER \n" + "   Astronaut " + user + "\nClick to restart";
             stateText.visible = true;
 
             //the "click to restart" handler
@@ -488,7 +487,7 @@ var game = new Phaser.Game(
             player.kill();
             enemyBullets2.callAll('kill');
 
-            stateText.text=" GAME OVER \n Click to restart";
+            stateText.text=" GAME OVER \n" + "   Astronaut " + user + "\nClick to restart";
             stateText.visible = true;
 
             //the "click to restart" handler
@@ -518,7 +517,7 @@ var game = new Phaser.Game(
             player.kill();
             enemyBullets3.callAll('kill');
 
-            stateText.text=" GAME OVER \n Click to restart";
+            stateText.text=" GAME OVER \n" + "   Astronaut " + user + "\nClick to restart";
             stateText.visible = true;
 
             //the "click to restart" handler
@@ -548,7 +547,7 @@ var game = new Phaser.Game(
             player.kill();
             enemyBullets4.callAll('kill');
 
-            stateText.text=" GAME OVER \n Click to restart";
+            stateText.text=" GAME OVER \n" + "   Astronaut " + user + "\nClick to restart";
             stateText.visible = true;
 
             //the "click to restart" handler
@@ -909,8 +908,8 @@ function getTopScores () {
 
 socket.on('inituserinfo', function(msg){
    userInfo = msg;
-   user = msg.user_count;
-   userText.text = userString + userInfo.user_count;
+   user = msg.user_number;
+//    userText.text = userString + userInfo.user_count;
 });
 
 socket.on('gettopscores', function(msg){
